@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { reviewServices } from "../../../services/movie-review-services/review-services";
+import { reviewServices } from "../../../services/movie-review-services/mysql_review-services";
 import {
   InvalidMovieReviewPayload,
   ReviewNotFound,
 } from "../../../services/movie-review-services/movie-review-errors";
 import { MovieReviewAppError } from "../../../error";
-import { UpdateReviewSchema } from "../../../services/movie-review-services/movie-review-validations";
+import { UpdateReviewSchema } from "../../../services/movie-review-services/movie-review-schemas";
 
 export async function updateReviewController(
   req: Request,

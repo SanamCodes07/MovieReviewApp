@@ -1,10 +1,16 @@
 import express, { Request, Response, NextFunction } from "express";
 import { homeController } from "./controllers/home-controller";
-import { createMovieRoutes } from "./routes/movies-route";
+import { createMovieRoutes } from "./routes/movie-route";
 
 import { MovieReviewAppError } from "./error";
-import "./db";
-import { createReviewRoutes } from "./routes/reviews-route";
+import "./mysql-db";
+import { createReviewRoutes } from "./routes/review-route";
+
+import { connectMongoDb } from "./mongo-db";
+
+connectMongoDb().then(() => {
+  console.log("MongoDB connected");
+});
 
 const app = express();
 

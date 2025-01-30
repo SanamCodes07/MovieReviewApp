@@ -1,4 +1,4 @@
-import { conn } from "../../db";
+import { conn } from "../../mysql-db";
 import { connPromise } from "./db-promise";
 
 type TMovie = {

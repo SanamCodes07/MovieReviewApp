@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { movieService } from "../../../services/movie-review-services/movie-services";
+import { movieService } from "../../../services/movie-review-services/mysql_movie-services";
 import { MovieReviewAppError } from "../../../error";
 import {
   InvalidMovieReviewPayload,
   MovieNotFound,
 } from "../../../services/movie-review-services/movie-review-errors";
-import { UpdateMovieSchema } from "../../../services/movie-review-services/movie-review-validations";
+import { UpdateMovieSchema } from "../../../services/movie-review-services/movie-review-schemas";
+import { movieMongoService } from "../../../mongo/movie/mongo_movie-services";
 
 export async function updateMovieController(
   req: Request,
@@ -13,8 +14,9 @@ export async function updateMovieController(
   next: NextFunction
 ) {
   try {
-    const movieId = Number(req.params.movieId);
+    const movieId = req.params.movieId;
     const body = req.body;
+    console.log(body);
 
     const parsed = UpdateMovieSchema.safeParse(body);
     if (!parsed.success) {
@@ -24,19 +26,24 @@ export async function updateMovieController(
       return;
     }
 
-    const movie = await movieService.getByIdMovie(movieId);
-    if (!movie) {
-      const movieNotFoundError = new MovieNotFound();
-      next(movieNotFoundError);
-      return;
-    }
+    if (process.env.DATABASE_TYPE === "MYSQL") {
+      const numMovieId = Number(movieId);
+      const movie = await movieService.getByIdMovie(numMovieId);
 
-    movieService.updateMovie(movieId, {
-      title: body.title,
-      description: body.description,
-      release_year: body.release_year,
-      genre: body.genre,
-    });
+      movieService.updateMovie(numMovieId, {
+        title: body.title,
+        description: body.description,
+        release_year: body.release_year,
+        genre: body.genre,
+      });
+    } else {
+      await movieMongoService.updateMovie(movieId, {
+        title: body.title,
+        description: body.description,
+        release_year: body.release_year,
+        genre: body.genre,
+      });
+    }
 
     res.json({
       message: "Movie updated successfully.",

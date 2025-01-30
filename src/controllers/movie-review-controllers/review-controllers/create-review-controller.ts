@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { createReviewSchema } from "../../../services/movie-review-services/movie-review-validations";
+import { createReviewSchema } from "../../../services/movie-review-services/movie-review-schemas";
 import { InvalidMovieReviewPayload } from "../../../services/movie-review-services/movie-review-errors";
-import { reviewServices } from "../../../services/movie-review-services/review-services";
+import { reviewServices } from "../../../services/movie-review-services/mysql_review-services";
 
 export function createReviewController(
   req: Request,
@@ -9,6 +9,7 @@ export function createReviewController(
   next: NextFunction
 ) {
   const body = req.body;
+  console.log(body);
   const parsed = createReviewSchema.safeParse(body);
   if (!parsed.success) {
     const parseError = parsed.error.flatten();
