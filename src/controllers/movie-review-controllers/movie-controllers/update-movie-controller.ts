@@ -5,7 +5,7 @@ import {
   InvalidMovieReviewPayload,
   MovieNotFound,
 } from "../../../services/movie-review-services/movie-review-errors";
-import { UpdateMovieSchema } from "../../../services/movie-review-services/movie-review-schemas";
+import { UpdateMovieSchema } from "../../../services/movie-review-services/movie-schema";
 import { movieMongoService } from "../../../mongo/movie/mongo_movie-services";
 
 export async function updateMovieController(
@@ -29,6 +29,10 @@ export async function updateMovieController(
     if (process.env.DATABASE_TYPE === "MYSQL") {
       const numMovieId = Number(movieId);
       const movie = await movieService.getByIdMovie(numMovieId);
+      res.json({
+        data: movie,
+        message: "Movies get all successfully.",
+      });
 
       movieService.updateMovie(numMovieId, {
         title: body.title,

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createReviewSchema } from "../../../services/movie-review-services/movie-review-schemas";
+import { createReviewSchema } from "../../../services/movie-review-services/movie-schema";
 import { InvalidMovieReviewPayload } from "../../../services/movie-review-services/movie-review-errors";
 import { reviewServices } from "../../../services/movie-review-services/mysql_review-services";
 

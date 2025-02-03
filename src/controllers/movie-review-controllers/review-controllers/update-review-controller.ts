@@ -5,7 +5,7 @@ import {
   ReviewNotFound,
 } from "../../../services/movie-review-services/movie-review-errors";
 import { MovieReviewAppError } from "../../../error";
-import { UpdateReviewSchema } from "../../../services/movie-review-services/movie-review-schemas";
+import { UpdateReviewSchema } from "../../../services/movie-review-services/movie-schema";
 
 export async function updateReviewController(
   req: Request,

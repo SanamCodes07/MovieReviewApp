@@ -68,7 +68,7 @@ async function getByIdMovie(movieId: string) {
   return movie;
 }
 
-export async function deleteMovie(movieId: string) {
+async function deleteMovie(movieId: string) {
   const movie = await MovieModel.findByIdAndDelete(movieId);
   if (!movie) {
     throw InvalidMovieReviewPayload;

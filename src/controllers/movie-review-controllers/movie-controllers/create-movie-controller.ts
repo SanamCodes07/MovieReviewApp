@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { CreateMovieSchema } from "../../../services/movie-review-services/movie-review-schemas";
+import { CreateMovieSchema } from "../../../services/movie-review-services/movie-schema";
 import { InvalidMovieReviewPayload } from "../../../services/movie-review-services/movie-review-errors";
 import { movieService } from "../../../services/movie-review-services/mysql_movie-services";
 import { movieMongoService } from "../../../mongo/movie/mongo_movie-services";
@@ -10,6 +10,7 @@ export async function createMovieController(
   res: Response,
   next: NextFunction
 ) {
+  // const userType = "super";
   try {
     const body = req.body;
     console.log(body);
